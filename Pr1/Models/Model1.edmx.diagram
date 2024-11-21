@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d4cca40819294822b6d159fe81343327" Name="Diagram1" ZoomLevel="54">
+        <EntityTypeShape EntityType="Pr1Model.Condition" Width="1.5" PointX="3" PointY="6.625" />
+        <EntityTypeShape EntityType="Pr1Model.Department" Width="1.5" PointX="3" PointY="11.25" />
+        <EntityTypeShape EntityType="Pr1Model.Device" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="Pr1Model.Mode" Width="1.5" PointX="3" PointY="8.875" />
+        <EntityTypeShape EntityType="Pr1Model.RepairOfTheDevice" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="Pr1Model.Status" Width="1.5" PointX="0.75" PointY="2.25" />
+        <EntityTypeShape EntityType="Pr1Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="Pr1Model.Verification" Width="1.5" PointX="7.5" PointY="1.75" />
+        <AssociationConnector Association="Pr1Model.FK_Device_Condition" />
+        <AssociationConnector Association="Pr1Model.FK_Device_Department" />
+        <AssociationConnector Association="Pr1Model.FK_Device_Mode" />
+        <AssociationConnector Association="Pr1Model.FK_Device_RepairOfTheDevice" />
+        <AssociationConnector Association="Pr1Model.FK_Device_Verification" />
+        <AssociationConnector Association="Pr1Model.FK_Verification_Device" />
+        <AssociationConnector Association="Pr1Model.FK_RepairOfTheDevice_Status" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

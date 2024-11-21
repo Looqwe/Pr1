@@ -1,0 +1,52 @@
+﻿<Window x:Class="Pr1.View.Windows.AddRepair"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pr1.View.Windows"
+        mc:Ignorable="d"
+           Title="Добавить Ремонт" Background="#abdaf5" MinWidth="400" MinHeight="250" 
+    SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Height="auto" Width="400" Margin="10" Header="Информация о ремонте">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="1*" />
+
+
+                </Grid.RowDefinitions>
+                
+                <TextBlock Grid.Row="1" Text="Устройство" />
+                <ComboBox Name="ModeCmb" Height="30" Grid.Row="1" Grid.Column="1" />
+
+                <TextBlock Grid.Row="3" Text="Организация"/>
+                <ComboBox Name="CondCmb" Height="30" Grid.Row="3" Grid.Column="1" />
+
+                <TextBlock Grid.Row="5" Text="Статус"/>
+                <ComboBox Name="DepCmb" Height="30" Grid.Row="5" Grid.Column="1" />
+    
+            </Grid>
+        </GroupBox>
+        <Button Content="Добавить" Background="White" Grid.Row="1"  HorizontalAlignment="Center" Name="AddSize" Height="40"  Width="156" Click="AddSize_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Grid>
+</Window>

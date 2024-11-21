@@ -1,0 +1,52 @@
+﻿<Page x:Class="Pr1.View.Pages.Verificationv"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Pr1.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="1280"
+      Title="Verificationv">
+
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="800" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <ListView Name="VerLv" Margin="20" Width="auto" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Артикул прибора" DisplayMemberBinding="{Binding IDDevice}"/>
+                        <GridViewColumn Header="Дата начала" DisplayMemberBinding="{Binding DateStart, StringFormat=dd.MM.yyy}"/>
+                        <GridViewColumn Header="Дата окончания" DisplayMemberBinding="{Binding DateEnd, StringFormat=dd.MM.yyy }"/>
+                        <GridViewColumn Header="Номер сертификата" DisplayMemberBinding="{Binding CertificateNumber }"/>
+                        <GridViewColumn Header="Компания" DisplayMemberBinding="{Binding Agency}"/>
+                        <GridViewColumn Header="Дата экспиртизы " DisplayMemberBinding="{Binding ExpirationDate, StringFormat=dd.MM.yyy}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Button FontSize="20" Grid.Row="2" Name="VerAddBtn" Content="Добавить Верификацию" Background="White" 
+                        Click="VerAddBtn_Click"  Margin="100,0,100,0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Page>

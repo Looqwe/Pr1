@@ -1,0 +1,526 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Pr1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Condition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdMode" Type="int" />
+          <Property Name="IdCondition" Type="int" />
+          <Property Name="IdDepartment" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdVerification" Type="int" />
+          <Property Name="IdRepairOfTheDevice" Type="int" />
+        </EntityType>
+        <EntityType Name="Mode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RepairOfTheDevice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Agency" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Verification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateStart" Type="date" />
+          <Property Name="DateEnd" Type="date" />
+          <Property Name="CertificateNumber" Type="int" />
+          <Property Name="Agency" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpirationDate" Type="date" />
+          <Property Name="IDDevice" Type="int" />
+        </EntityType>
+        <Association Name="FK_Device_Condition">
+          <End Role="Condition" Type="Self.Condition" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Condition">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdCondition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_Mode">
+          <End Role="Mode" Type="Self.Mode" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdMode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_RepairOfTheDevice">
+          <End Role="RepairOfTheDevice" Type="Self.RepairOfTheDevice" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepairOfTheDevice">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdRepairOfTheDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_Verification">
+          <End Role="Verification" Type="Self.Verification" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verification">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdVerification" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairOfTheDevice_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="RepairOfTheDevice" Type="Self.RepairOfTheDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RepairOfTheDevice">
+              <PropertyRef Name="IDStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Verification_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="Verification" Type="Self.Verification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Verification">
+              <PropertyRef Name="IDDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Pr1ModelContainer">
+          <EntitySet Name="Condition" EntityType="Self.Condition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mode" EntityType="Self.Mode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepairOfTheDevice" EntityType="Self.RepairOfTheDevice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Verification" EntityType="Self.Verification" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Device_Condition" Association="Self.FK_Device_Condition">
+            <End Role="Condition" EntitySet="Condition" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_Department" Association="Self.FK_Device_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_Mode" Association="Self.FK_Device_Mode">
+            <End Role="Mode" EntitySet="Mode" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_RepairOfTheDevice" Association="Self.FK_Device_RepairOfTheDevice">
+            <End Role="RepairOfTheDevice" EntitySet="RepairOfTheDevice" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_Verification" Association="Self.FK_Device_Verification">
+            <End Role="Verification" EntitySet="Verification" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairOfTheDevice_Status" Association="Self.FK_RepairOfTheDevice_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="RepairOfTheDevice" EntitySet="RepairOfTheDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Verification_Device" Association="Self.FK_Verification_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="Verification" EntitySet="Verification" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Pr1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Pr1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Condition" EntityType="Pr1Model.Condition" />
+          <EntitySet Name="Department" EntityType="Pr1Model.Department" />
+          <EntitySet Name="Device" EntityType="Pr1Model.Device" />
+          <EntitySet Name="Mode" EntityType="Pr1Model.Mode" />
+          <EntitySet Name="RepairOfTheDevice" EntityType="Pr1Model.RepairOfTheDevice" />
+          <EntitySet Name="Status" EntityType="Pr1Model.Status" />
+          <EntitySet Name="sysdiagrams" EntityType="Pr1Model.sysdiagrams" />
+          <EntitySet Name="Verification" EntityType="Pr1Model.Verification" />
+          <AssociationSet Name="FK_Device_Condition" Association="Pr1Model.FK_Device_Condition">
+            <End Role="Condition" EntitySet="Condition" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_Department" Association="Pr1Model.FK_Device_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_Mode" Association="Pr1Model.FK_Device_Mode">
+            <End Role="Mode" EntitySet="Mode" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_RepairOfTheDevice" Association="Pr1Model.FK_Device_RepairOfTheDevice">
+            <End Role="RepairOfTheDevice" EntitySet="RepairOfTheDevice" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_Verification" Association="Pr1Model.FK_Device_Verification">
+            <End Role="Verification" EntitySet="Verification" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Verification_Device" Association="Pr1Model.FK_Verification_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="Verification" EntitySet="Verification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairOfTheDevice_Status" Association="Pr1Model.FK_RepairOfTheDevice_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="RepairOfTheDevice" EntitySet="RepairOfTheDevice" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Condition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Device" Relationship="Pr1Model.FK_Device_Condition" FromRole="Condition" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Device" Relationship="Pr1Model.FK_Device_Department" FromRole="Department" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdMode" Type="Int32" />
+          <Property Name="IdCondition" Type="Int32" />
+          <Property Name="IdDepartment" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdVerification" Type="Int32" />
+          <Property Name="IdRepairOfTheDevice" Type="Int32" />
+          <NavigationProperty Name="Condition" Relationship="Pr1Model.FK_Device_Condition" FromRole="Device" ToRole="Condition" />
+          <NavigationProperty Name="Department" Relationship="Pr1Model.FK_Device_Department" FromRole="Device" ToRole="Department" />
+          <NavigationProperty Name="Mode" Relationship="Pr1Model.FK_Device_Mode" FromRole="Device" ToRole="Mode" />
+          <NavigationProperty Name="RepairOfTheDevice" Relationship="Pr1Model.FK_Device_RepairOfTheDevice" FromRole="Device" ToRole="RepairOfTheDevice" />
+          <NavigationProperty Name="Verification" Relationship="Pr1Model.FK_Device_Verification" FromRole="Device" ToRole="Verification" />
+          <NavigationProperty Name="Verification1" Relationship="Pr1Model.FK_Verification_Device" FromRole="Device" ToRole="Verification" />
+        </EntityType>
+        <EntityType Name="Mode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Device" Relationship="Pr1Model.FK_Device_Mode" FromRole="Mode" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="RepairOfTheDevice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Agency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDStatus" Type="Int32" />
+          <NavigationProperty Name="Device" Relationship="Pr1Model.FK_Device_RepairOfTheDevice" FromRole="RepairOfTheDevice" ToRole="Device" />
+          <NavigationProperty Name="Status" Relationship="Pr1Model.FK_RepairOfTheDevice_Status" FromRole="RepairOfTheDevice" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RepairOfTheDevice" Relationship="Pr1Model.FK_RepairOfTheDevice_Status" FromRole="Status" ToRole="RepairOfTheDevice" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Verification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateStart" Type="DateTime" Precision="0" />
+          <Property Name="DateEnd" Type="DateTime" Precision="0" />
+          <Property Name="CertificateNumber" Type="Int32" />
+          <Property Name="Agency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="0" />
+          <Property Name="IDDevice" Type="Int32" />
+          <NavigationProperty Name="Device" Relationship="Pr1Model.FK_Device_Verification" FromRole="Verification" ToRole="Device" />
+          <NavigationProperty Name="Device1" Relationship="Pr1Model.FK_Verification_Device" FromRole="Verification" ToRole="Device" />
+        </EntityType>
+        <Association Name="FK_Device_Condition">
+          <End Type="Pr1Model.Condition" Role="Condition" Multiplicity="0..1" />
+          <End Type="Pr1Model.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Condition">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdCondition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_Department">
+          <End Type="Pr1Model.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="Pr1Model.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_Mode">
+          <End Type="Pr1Model.Mode" Role="Mode" Multiplicity="0..1" />
+          <End Type="Pr1Model.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdMode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_RepairOfTheDevice">
+          <End Type="Pr1Model.RepairOfTheDevice" Role="RepairOfTheDevice" Multiplicity="0..1" />
+          <End Type="Pr1Model.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepairOfTheDevice">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdRepairOfTheDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_Verification">
+          <End Type="Pr1Model.Verification" Role="Verification" Multiplicity="0..1" />
+          <End Type="Pr1Model.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verification">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdVerification" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Verification_Device">
+          <End Type="Pr1Model.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="Pr1Model.Verification" Role="Verification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Verification">
+              <PropertyRef Name="IDDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairOfTheDevice_Status">
+          <End Type="Pr1Model.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="Pr1Model.RepairOfTheDevice" Role="RepairOfTheDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RepairOfTheDevice">
+              <PropertyRef Name="IDStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Pr1ModelContainer" CdmEntityContainer="Pr1Entities">
+          <EntitySetMapping Name="Condition">
+            <EntityTypeMapping TypeName="Pr1Model.Condition">
+              <MappingFragment StoreEntitySet="Condition">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="Pr1Model.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Device">
+            <EntityTypeMapping TypeName="Pr1Model.Device">
+              <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="IdRepairOfTheDevice" ColumnName="IdRepairOfTheDevice" />
+                <ScalarProperty Name="IdVerification" ColumnName="IdVerification" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="IdDepartment" ColumnName="IdDepartment" />
+                <ScalarProperty Name="IdCondition" ColumnName="IdCondition" />
+                <ScalarProperty Name="IdMode" ColumnName="IdMode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mode">
+            <EntityTypeMapping TypeName="Pr1Model.Mode">
+              <MappingFragment StoreEntitySet="Mode">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepairOfTheDevice">
+            <EntityTypeMapping TypeName="Pr1Model.RepairOfTheDevice">
+              <MappingFragment StoreEntitySet="RepairOfTheDevice">
+                <ScalarProperty Name="IDStatus" ColumnName="IDStatus" />
+                <ScalarProperty Name="Agency" ColumnName="Agency" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="Pr1Model.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Pr1Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Verification">
+            <EntityTypeMapping TypeName="Pr1Model.Verification">
+              <MappingFragment StoreEntitySet="Verification">
+                <ScalarProperty Name="IDDevice" ColumnName="IDDevice" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="Agency" ColumnName="Agency" />
+                <ScalarProperty Name="CertificateNumber" ColumnName="CertificateNumber" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
